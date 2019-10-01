@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.buyer.dao.IBuyerDAO">
+	<insert id="insertBuyer" parameterType="BuyerVO">
+	INSERT INTO BUYER(		BUYER_ID,		BUYER_NAME,    		BUYER_LGU,     
+			BUYER_BANK,    		BUYER_BANKNO,		BUYER_BANKNAME,
+			BUYER_ZIP,     		BUYER_ADD1,		BUYER_ADD2,    
+			BUYER_COMTEL,		BUYER_FAX,		BUYER_MAIL,		BUYER_CHARGER,		BUYER_TELEXT)   
+			VALUES(
+			#{buyer_id},		#{buyer_name},    		#{buyer_lgu},     
+			#{buyer_bank},    		#{buyer_bankno}, #{buyer_bankname},
+			#{buyer_zip},     		#{buyer_add1},		#{buyer_add2},    
+			#{buyer_comtel},		#{buyer_fax},		#{buyer_mail},	#{buyer_charger},	#{buyer_telext} 
+		) 
+	</insert>
+ <select id="selectBuyerList" resultType="BuyerVO">
+ 		SELECT                
+		BUYER_ID,		BUYER_NAME,		BUYER_LGU,		BUYER_BANK,           
+		BUYER_BANKNO,		BUYER_BANKNAME,		BUYER_ZIP,	BUYER_ADD1,           
+		BUYER_ADD2,		BUYER_COMTEL,	BUYER_FAX,	BUYER_MAIL,	BUYER_CHARGER,	BUYER_TELEXT          
+		FROM BUYER
+ </select>
+ <select id="selectBuyer" parameterType="BuyerVO" resultType="BuyerVO">
+ 	SELECT
+		BUYER_ID,	BUYER_NAME,		BUYER_LGU,		BUYER_BANK,             
+		BUYER_BANKNO,  BUYER_BANKNAME,	BUYER_ZIP,		BUYER_ADD1,	BUYER_ADD2,             
+		BUYER_COMTEL,		BUYER_FAX,  BUYER_MAIL,		BUYER_CHARGER, BUYER_TELEXT          
+		FROM BUYER              
+		WHERE BUYER_ID= #{buyer_id}		
+ </select>
+ <update id="updateBuyer" parameterType="BuyerVO">
+		UPDATE BUYER 
+		SET 
+		BUYER_NAME = #{buyer_name},  
+		BUYER_LGU = #{buyer_lgu},   
+		BUYER_BANK = #{buyer_bank},  
+		BUYER_BANKNO = #{buyer_bankno},
+		BUYER_BANKNAME = #{buyer_bankname},
+		BUYER_ZIP = #{buyer_zip},   
+		BUYER_ADD1 = #{buyer_add1},  
+		BUYER_ADD2 = #{buyer_add2},  
+		BUYER_COMTEL = #{buyer_comtel},
+		BUYER_FAX = #{buyer_fax},   
+		BUYER_MAIL = #{buyer_mail},  
+		BUYER_CHARGER= #{buyer_charger}
+		WHERE BUYER_ID= #{buyer_id}
+ </update>
+ <delete id="deleteBuyer" parameterType="BuyerVO" > 
+ DELETE FROM BUYER WHERE BUYER_ID= #{buyer_id}
+ </delete>
+</mapper>

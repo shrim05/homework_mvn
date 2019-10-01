@@ -70,7 +70,7 @@ public class BuyerController {
 				return null;
 			}
 		}else {
-			return "buyerMain";
+			return "/buyerMain";
 		}
 			
 	}

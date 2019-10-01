@@ -85,9 +85,9 @@
             type: "post",
             url: contextPath+"/BuyerUpdate",
             data: formData,
-            dataType: "json",
+            dataType: "text",
             success: function (response) {
-             	alert(response.result);
+             	alert(response);
              	$('#myModal').modal('hide');
             }
         });
@@ -98,9 +98,9 @@
             type: "post",
             url: contextPath+"/BuyerDeleteController",
             data: formData,
-            dataType: "json",
+            dataType: "text",
             success: function (response) {
-            	alert(response.result);
+            	alert(response);
             	$('#myModal').modal('hide');
             }
         });

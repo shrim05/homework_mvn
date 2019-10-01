@@ -26,5 +26,7 @@
   <servlet-mapping>
   	<servlet-name>FrontController</servlet-name>
   	<url-pattern>/BuyerController/*</url-pattern>
+  	<url-pattern>/BuyerUpdate</url-pattern>
+  	<url-pattern>/BuyerDeleteController</url-pattern>
   </servlet-mapping>
 </web-app>
