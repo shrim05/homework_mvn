@@ -2,8 +2,9 @@ package kr.or.ddit.buyer.service;
 
 import java.util.List;
 
-import kr.or.ddit.buyer.vo.BuyerVO;
 import kr.or.ddit.enums.ServiceResult;
+import kr.or.ddit.vo.BuyerVO;
+import kr.or.ddit.vo.PagingInfoVO;
 
 /**
  *  바이어 관리를 위한 Business Logic Layer
@@ -25,11 +26,13 @@ public interface IBuyerService {
 	 */
 	public BuyerVO retrieveBuyer(BuyerVO bv);
 	
+	public int retireveBuyerCount(PagingInfoVO<BuyerVO> pagingVO);
 	/**
 	 * 바이어목록조회
+	 * @param pagingVO TODO
 	 * @return 조건에 맞는 회원이 없는 경우 ,size()==0
 	 */
-	public List<BuyerVO> retrieveBuyerList();
+	public List<BuyerVO> retrieveBuyerList(PagingInfoVO pagingVO);
 	
 
 	/**

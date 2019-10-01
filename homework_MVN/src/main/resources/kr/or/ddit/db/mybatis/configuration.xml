@@ -3,7 +3,7 @@
 <configuration>
 	<properties resource="utils/dbInfo.properties" />
 	<typeAliases>
-		<typeAlias type="kr.or.ddit.buyer.vo.BuyerVO" />
+		<package name="kr.or.ddit.vo"/>
 	</typeAliases>
 	<environments default="dvp">
 		<environment id="dvp">

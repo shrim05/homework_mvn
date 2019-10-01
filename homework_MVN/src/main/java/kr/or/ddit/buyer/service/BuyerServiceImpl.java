@@ -4,9 +4,10 @@ import java.util.List;
 
 import kr.or.ddit.buyer.dao.BuyerDAOImpl;
 import kr.or.ddit.buyer.dao.IBuyerDAO;
-import kr.or.ddit.buyer.vo.BuyerVO;
 import kr.or.ddit.enums.ServiceResult;
 import kr.or.ddit.exception.IdNotFoundException;
+import kr.or.ddit.vo.BuyerVO;
+import kr.or.ddit.vo.PagingInfoVO;
 
 public class BuyerServiceImpl implements IBuyerService{
 	
@@ -41,8 +42,8 @@ public class BuyerServiceImpl implements IBuyerService{
 	}
 
 	@Override
-	public List<BuyerVO> retrieveBuyerList() {
-		return dao.selectBuyerList();
+	public List<BuyerVO> retrieveBuyerList(PagingInfoVO pagingVO) {
+		return dao.selectBuyerList(pagingVO);
 	}
 
 	@Override
@@ -72,5 +73,10 @@ public class BuyerServiceImpl implements IBuyerService{
 			return ServiceResult.FAILED;
 		}
 		
+	}
+
+	@Override
+	public int retireveBuyerCount(PagingInfoVO<BuyerVO> pagingVO) {
+		return dao.selectBuyerCount(pagingVO);
 	}
 }

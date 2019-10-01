@@ -2,7 +2,8 @@ package kr.or.ddit.buyer.dao;
 
 import java.util.List;
 
-import kr.or.ddit.buyer.vo.BuyerVO;
+import kr.or.ddit.vo.BuyerVO;
+import kr.or.ddit.vo.PagingInfoVO;
 
 /**
  *  회원관리를 위한 Persistence layer
@@ -17,11 +18,13 @@ public interface IBuyerDAO {
 	 */
 	public int insertBuyer(BuyerVO bv);
 	
+	public int selectBuyerCount(PagingInfoVO<BuyerVO> pagingVO);
 	/**
 	 * 바이어 목록조회
+	 * @param pagingVO TODO
 	 * @return 조건에 맞는 바이어가 없는 경우 ,size()==0
 	 */
-	public List<BuyerVO> selectBuyerList();
+	public List<BuyerVO> selectBuyerList(PagingInfoVO pagingVO);
 	
 	/**
 	 * 바이어 상세 조회

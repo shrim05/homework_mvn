@@ -12,7 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.or.ddit.buyer.vo.BuyerVO;
+import kr.or.ddit.vo.BuyerVO;
+import kr.or.ddit.vo.PagingInfoVO;
 import utils.ConnectionFactory;
 
 public class BuyerDAOImpl_JDBC implements IBuyerDAO{
@@ -88,7 +89,7 @@ public class BuyerDAOImpl_JDBC implements IBuyerDAO{
 	}
 
 	@Override
-	public List<BuyerVO> selectBuyerList() {
+	public List<BuyerVO> selectBuyerList(PagingInfoVO pagingVO) {
 		List<BuyerVO> lbv = new ArrayList<>();
 		ResultSet rs = null;
 		StringBuffer sql = new StringBuffer();
@@ -252,6 +253,12 @@ public class BuyerDAOImpl_JDBC implements IBuyerDAO{
 				e.printStackTrace();
 			}
 			return result;
+	}
+
+	@Override
+	public int selectBuyerCount(PagingInfoVO<BuyerVO> paging) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 

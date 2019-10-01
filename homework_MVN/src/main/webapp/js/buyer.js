@@ -2,7 +2,8 @@
  * 
  */
   var contentArea = $('#contentArea');
-    
+  var pagingArea =$('#pagingArea');
+  var prodInfoArea = $('#prodInfoArea');
     $('#menu').on('click','li',function () { 
         $(this).siblings().removeClass("active");
         $(this).addClass("active");
@@ -13,6 +14,7 @@
         $('#resetBtn').show().click();  
         $('#deleteBtn').hide();
         $('#updateBtn').hide();
+        prodInfoArea.hide();
     });
     
     $('#contentArea').on('click','tr',function () {
@@ -20,7 +22,8 @@
         $('#deleteBtn').show();
         $('#updateBtn').show();
         $('#confirmBtn').hide();    
-        $('#resetBtn').hide();    
+        $('#resetBtn').hide();  
+        prodInfoArea.show();
             $.ajax({
                 type: "get",
                 url:  contextPath+"/BuyerController",
@@ -40,31 +43,54 @@
                     $("input[name='buyer_mail']").val(v.buyer_mail);
                     $("input[name='buyer_name']").val(v.buyer_name);
                     $("input[name='buyer_zip']").val(v.buyer_zip);
+                    let code="<table><tr>";
+                    code+="<th>상품코드</th><th>상품명</th><th>구분</th><th>가격</th></tr>";
+                    if(v.prodList[0].prod_id==null){
+                    	code += "<td colspan='4'>보유상품없음</td>";
+                    }else{
+	                    $.each(v.prodList,function(i,prod){
+	                    	code +="<tr><td>"+prod.prod_id+"</td><td>"+prod.prod_name+"</td><td>"+prod.prod_lgu+"</td>";
+	                    	code += "<td>"+prod.prod_price+"</td></tr>"
+	                    });
+	                    code+="</table>";
+                    }
+                    prodInfoArea.html(code);
                 }
             });
         }   
     );
 
-    $('#readList').on('click',function () { 
-        $.ajax({
-            type: "get",
-            url: contextPath+"/BuyerController",
-            data: "command=readList",
-            dataType: "json",
-            success: function (response) {  
-                let code = "<table id='listTB' class='table'>";
-                code += "<thead class='thead-dark'> <tr><th>아이디</th><th>이름</th><th>구분</th><th>대표자</th><th>이메일</th></thead>";
-                code += "<tbody>"
-                $.each(response, function (i, v) { 
-                     code+="<tr id="+v.buyer_id+"><td>"+v.buyer_id+"</td><td>"+v.buyer_name+"</td><td>"+v.buyer_lgu+"</td>";
-                     code+="<td>"+v.buyer_charger+"</td><td>"+v.buyer_mail+"</td>";
-                });
-                code+="</tbody></table>"
-                contentArea.html(code);
-            }   
-        });
-        
+  $('#readList').on('click',function () { 
+	  ajaxReadList(1);
     });
+  
+  function ajaxReadList(page){
+      $.ajax({
+          type: "get",
+          url: contextPath+"/BuyerController",
+          data: {"command":"readList","page":page},
+          dataType: "json",
+          success: function (response) {  
+              let code = "<table id='listTB' class='table'>";
+              code += "<thead class='thead-dark'> <tr><th>아이디</th><th>이름</th><th>구분</th><th>대표자</th><th>이메일</th></thead>";
+              code += "<tbody>"
+              var dataList=response.dataList;
+              $.each(dataList, function (i, v) { 
+                   code+="<tr id="+v.buyer_id+"><td>"+v.buyer_id+"</td><td>"+v.buyer_name+"</td><td>"+v.buyer_lgu+"</td>";
+                   code+="<td>"+v.buyer_charger+"</td><td>"+v.buyer_mail+"</td>";
+              });
+              code+="</tbody></table>"
+              contentArea.html(code);
+              pagingArea.html(response.pagingHTML);
+          }   
+      });
+  }
+	$(pagingArea).on("click","a",function(){
+		var page = $(this).data("page");
+		if(page>0){
+			ajaxReadList(page);
+		}
+	});
     
     $('#confirmBtn').on('click', function () {
     	var formData = $('#editForm').serialize();

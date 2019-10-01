@@ -23,6 +23,8 @@
       
       <p><span class="badge">2</span> Comments:</p><br>
    </div>
+   <div id="pagingArea">
+   </div>
 
   <!-- The Modal -->
   <div class="modal fade" id="myModal">
@@ -59,6 +61,8 @@
                   <tr><td>buyer_name: </td><td><input type='text' 		name='buyer_name' value="">
                   <tr><td>buyer_zip: </td><td><input type='text' 		name='buyer_zip' value="">
               </tbody>
+              <tfoot id="prodInfoArea">
+              </tfoot>
     </table>
         
         </div>

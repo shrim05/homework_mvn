@@ -16,11 +16,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import kr.or.ddit.buyer.service.BuyerServiceImpl;
 import kr.or.ddit.buyer.service.IBuyerService;
-import kr.or.ddit.buyer.vo.BuyerVO;
 import kr.or.ddit.enums.ServiceResult;
 import kr.or.ddit.mvc.annotation.CommandHandler;
 import kr.or.ddit.mvc.annotation.HttpMethod;
 import kr.or.ddit.mvc.annotation.URIMapping;
+import kr.or.ddit.vo.BuyerVO;
+import kr.or.ddit.vo.PagingInfoVO;
 import utils.MarshallingUtils;
 
 /**
@@ -36,14 +37,24 @@ public class BuyerController {
 		request.setCharacterEncoding("UTF-8");
 		List<BuyerVO> lbv = null;
 		String accept = request.getHeader("Accept");
+		PagingInfoVO<BuyerVO> pagingVO = new PagingInfoVO<>(5, 3);
+		int totalRecord = service.retireveBuyerCount(pagingVO);
+		int currentPage = 1;
+		String page = request.getParameter("page");
+		if(StringUtils.isNumeric(page)) {
+			currentPage=Integer.parseInt(page);
+		}
+		pagingVO.setCurrentPage(currentPage);
+		pagingVO.setTotalRecord(totalRecord);
 		if(accept.contains("json")) {
 			String command = request.getParameter("command");
 			String json = "";
 			if(StringUtils.isNotBlank(command)) {
 				switch(command) {
 					case "readList":
-						lbv = service.retrieveBuyerList();
-						json = new MarshallingUtils().marshalling(lbv);
+						lbv = service.retrieveBuyerList(pagingVO);
+						pagingVO.setDataList(lbv);
+						json = new MarshallingUtils().marshalling(pagingVO);
 						break;
 					case "readOne":
 						String buyer_id = request.getParameter("buyer_id");

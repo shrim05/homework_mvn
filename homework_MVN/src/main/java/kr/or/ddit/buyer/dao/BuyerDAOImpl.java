@@ -5,8 +5,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import kr.or.ddit.buyer.vo.BuyerVO;
 import kr.or.ddit.db.mybatis.CustomSqlSessionFactoryBuilder;
+import kr.or.ddit.vo.BuyerVO;
+import kr.or.ddit.vo.PagingInfoVO;
 
 public class BuyerDAOImpl implements IBuyerDAO{
 	private SqlSessionFactory sqlSessionFactory;
@@ -34,14 +35,25 @@ public class BuyerDAOImpl implements IBuyerDAO{
 					return cnt;
 				}
 	}
-
+	
 	@Override
-	public List<BuyerVO> selectBuyerList() {
+	public int selectBuyerCount(PagingInfoVO<BuyerVO> paging) {
 		try(
 						SqlSession sqlSession = sqlSessionFactory.openSession();
 						){
 			IBuyerDAO mapper = sqlSession.getMapper(IBuyerDAO.class);
-					return mapper.selectBuyerList();
+					return mapper.selectBuyerCount(paging);
+				}
+	}
+	
+	
+	@Override
+	public List<BuyerVO> selectBuyerList(PagingInfoVO pagingVO) {
+		try(
+						SqlSession sqlSession = sqlSessionFactory.openSession();
+						){
+			IBuyerDAO mapper = sqlSession.getMapper(IBuyerDAO.class);
+					return mapper.selectBuyerList(pagingVO);
 				}
 	}
 
@@ -78,6 +90,7 @@ public class BuyerDAOImpl implements IBuyerDAO{
 			return cnt;
 		}
 	}
+
 	
 
 }
