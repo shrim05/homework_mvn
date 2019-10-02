@@ -24,6 +24,7 @@ public class BuyerVO implements Serializable{
 	private String buyer_charger;
 	private String buyer_telext;
 	private List<ProdVO> prodList;
+	private String buyer_img;
 	
 	@Override
 	public String toString() {

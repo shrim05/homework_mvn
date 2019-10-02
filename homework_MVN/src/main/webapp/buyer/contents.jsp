@@ -37,7 +37,7 @@
         </div>
         
         <!-- Modal body -->
-          <form id="editForm" action="${pageContext.request.contextPath}/BuyerController" method="post">
+          <form id="editForm" enctype="multipart/form-data" action="${pageContext.request.contextPath}/BuyerController" method="post">
         <div class="modal-body">
              <table class="table table-striped">
               <thead>
@@ -47,6 +47,7 @@
                 </tr>
               </thead>
               <tbody>
+              	  <tr><td><img src="" /></td><td><input type="file" name="buyer_img" accept="image"></td></tr>
                	  <tr><td>buyer_add1: </td><td><input type='text'  		name='buyer_add1' value="">
                   <tr><td>buyer_add2: </td><td><input type='text' 		name='buyer_add2' value="">
                   <tr><td>buyer_bank</td><td><input type='text' 		name='buyer_bank' value="">
@@ -70,7 +71,7 @@
         <div class="modal-footer">
           <button id="updateBtn" type="button" class="btn btn-info" data-dismiss="modal">modify</button>
           <button id="deleteBtn" type="button" class="btn btn-info" data-dismiss="modal">delete</button>
-          <button id="confirmBtn" type="submit" class="btn btn-info" data-dismiss="modal">confirm</button>
+          <button id="confirmBtn" type="button" class="btn btn-info" data-dismiss="modal">confirm</button>
           <button id="resetBtn" type="reset" class="btn btn-warn" >reset</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>

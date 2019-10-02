@@ -70,6 +70,8 @@
           url: contextPath+"/BuyerController",
           data: {"command":"readList","page":page},
           dataType: "json",
+          enctype: 'multipart/form-data',
+          contentType : false,
           success: function (response) {  
               let code = "<table id='listTB' class='table'>";
               code += "<thead class='thead-dark'> <tr><th>아이디</th><th>이름</th><th>구분</th><th>대표자</th><th>이메일</th></thead>";
@@ -97,6 +99,9 @@
         $.ajax({
             type: "post",
             url: contextPath+"/BuyerController",
+            contentType : false,
+            processData : false,
+            enctype: 'multipart/form-data',
             data: formData,
             dataType: "json",
             success: function (response) {
@@ -106,11 +111,15 @@
         });
     });
     $('#updateBtn').on('click', function () {
-    	var formData = $('#editForm').serialize();
+    	var formData =  new FormData(document.getElementById('editForm'));
         $.ajax({
             type: "post",
             url: contextPath+"/BuyerUpdate",
+            contentType : false,
+            processData : false,
+            cache:false,
             data: formData,
+            
             dataType: "text",
             success: function (response) {
              	alert(response);
